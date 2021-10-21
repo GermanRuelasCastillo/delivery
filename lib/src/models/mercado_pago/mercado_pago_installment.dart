@@ -18,10 +18,13 @@ class MercadoPagoInstallment {
   MercadoPagoInstallment();
 
   MercadoPagoInstallment.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) {
+    if (jsonList.isEmpty) {
       return;
     }
+    print('pasando a installment');
     jsonList.forEach((item) {
+      print('item installment: ');
+      print(item);
       final chat = MercadoPagoInstallment.fromJsonMap(item);
       installmentList.add(chat);
     });

@@ -21,7 +21,7 @@ class MercadoPagoPaymentMethodInstallments {
   MercadoPagoPaymentMethodInstallments();
 
   MercadoPagoPaymentMethodInstallments.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) {
+    if (jsonList.isEmpty) {
       return;
     }
     jsonList.forEach((item) {
@@ -37,12 +37,13 @@ class MercadoPagoPaymentMethodInstallments {
         ? MercadoPagoIssuer.fromJsonMap(json['issuer'])
         : MercadoPagoIssuer();
     processingMode = json['processing_mode'];
-    merchantAccountId = json['merchant_account_id'];
+    merchantAccountId =
+        json['merchant_account_id'] != null ? json['merchant_account_id'] : '';
     payerCosts = (json['payer_costs'] != null)
         ? MercadoPagoInstallment.fromJsonList(json['payer_costs'])
             .installmentList
         : [];
-    aggreements = json['agreements'];
+    aggreements = json['agreements'] != null ? json['agreements'] : '';
   }
 
   Map<String, dynamic> toJson() => {

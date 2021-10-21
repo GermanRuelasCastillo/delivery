@@ -34,13 +34,12 @@ class MercadoPagoCardToken {
 
   MercadoPagoCardToken.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
-    publicKey = json['public_key'];
+    publicKey = json['public_key'] != null ? json['public_key'] : '';
     cardId = json['card_id'] != null ? json['card_id'] : json['id'];
     // luhnValidation = json['luhnValidation'];
     status = json['status'];
-    dateUsed = (json['date_used'] != null)
-        ? DateTime.parse(json['date_used'])
-        : DateTime.now();
+    dateUsed =
+        (json['date_used'] is DateTime) ? (json['date_used']) : DateTime.now();
     cardNumberLength = json['card_number_length'];
     dateCreated = json['date_created'] is DateTime
         ? json['date_created']
@@ -61,10 +60,15 @@ class MercadoPagoCardToken {
         ? json['date_due']
         : DateTime.parse(json['date_due']);
     // json['cardholder'] != null &&
-    cardHolder = (json['cardholder']["identification"].isNotEmpty)
+    cardHolder = (json['cardholder']["name"] != null)
         ? MercadoPagoCardHolder.fromJsonMap(json['cardholder'])
-        : MercadoPagoCardHolder.fromJsonMap(
-            {"name": null, "number": null, "subtype": null, "type": null});
+        : MercadoPagoCardHolder.fromJsonMap({
+            "name": null,
+            "number": null,
+            "subtype": null,
+            "type": null,
+            "identification": null
+          });
     liveMode = json['live_mode'];
   }
 

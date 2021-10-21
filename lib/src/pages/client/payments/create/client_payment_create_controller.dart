@@ -109,6 +109,8 @@ class ClientPaymentsCreateController {
       if (response.statusCode == 201) {
         cardToken = new MercadoPagoCardToken.fromJsonMap(data);
         print('cardToken: ${cardToken.toJson()}');
+        Navigator.pushNamed(context!, 'client/payments/installments',
+            arguments: cardToken.toJson());
       } else {
         print(' error en tokenizacion');
         print(data);
